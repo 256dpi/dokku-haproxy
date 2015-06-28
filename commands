@@ -1,4 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nodejs
 
-# add some commands
-echo "dokku-haproxy: commands"
+switch(process.argv[2]) {
+  case 'help':
+    help();
+    break;
+}
+
+function help() {
+    var s = "  ports <app>                      Display configured ports\n";
+    s += "  ports:add <app> <name> <port>    Add a port configuration\n";
+    s += "  ports:remove <app> <name>        Rmeove a port configuration";
+    console.log(s);
+}
