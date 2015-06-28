@@ -1,5 +1,9 @@
 #!/usr/bin/env nodejs
 
+var fs = require('fs');
+
+var DOKKU_ROOT = process.env['DOKKU_ROOT'];
+
 switch(process.argv[2]) {
   case 'help':
     do_help();
@@ -16,20 +20,59 @@ switch(process.argv[2]) {
 }
 
 function do_help() {
-    var s = "    ports <app>                      Display configured ports\n";
-    s += "    ports:add <app> <name> <port>    Add a port configuration\n";
-    s += "    ports:remove <app> <name>        Rmeove a port configuration";
+    var s = '    ports <app>                      Display configured ports\n';
+    s += '    ports:add <app> <name> <port>    Add a port configuration\n';
+    s += '    ports:remove <app> <name>        Rmeove a port configuration';
     console.log(s);
 }
 
 function do_list(app) {
-  console.log("list:", app);
+  if(!app) {
+    return console.log('please specify app name!');
+  }
+
+  var app_dir = DOKKU_ROOT + '/' + app;
+
+  if(fs.existsSync(app_dir)) {
+    var ports_file = app_dir + '/PORTS';
+
+    if(fs.existsSync(ports_file)) {
+      var ports = JSON.parse(fs.readFileSync(ports_file));
+      Object.keys(ports).forEach(function(name){
+        console.log(ports[name] + " => " + name.toUpperCase() + '_PORT');
+      });
+    } else {
+      console.log('no ports haven been configured yet!');
+    }
+  } else {
+    console.log('app has not been deployed yet!');
+  }
 }
 
 function do_add(app, name, port) {
-  console.log("add:", app, name, port);
+  if(!app || !name || !port) {
+    return console.log('please specify app name, port name and port!');
+  }
+
+  var ports_file = DOKKU_ROOT + '/' + app + '/PORTS';
+  var ports = {};
+
+  if(fs.existsSync(ports_file)) {
+    ports = JSON.parse(fs.readFileSync(ports_file));
+  }
+  if(!ports[name]) {
+    ports[name] = port;
+    fs.writeFileSync(ports_file, JSON.stringify(ports));
+    console.log('set/updated port!');
+  } else {
+    console.log('port name already taken!');
+  }
 }
 
 function do_remove(app, name) {
-  console.log("remove:", app, name);
+  if(!app || !name) {
+    return console.log('please specify app name and port name!');
+  }
+
+  console.log('remove:', app, name);
 }
