@@ -4,11 +4,32 @@ switch(process.argv[2]) {
   case 'help':
     help();
     break;
+  case 'ports':
+    list(process.argv[3]);
+    break;
+  case 'ports:add'
+    add(process.argv[3], process.argv[4], process.argv[5]);
+    break;
+  case 'ports:remove'
+    remove(process.argv[3], process.argv[4]);
+    break;
 }
 
 function help() {
-    var s = "  ports <app>                      Display configured ports\n";
-    s += "  ports:add <app> <name> <port>    Add a port configuration\n";
-    s += "  ports:remove <app> <name>        Rmeove a port configuration";
+    var s = "    ports <app>                      Display configured ports\n";
+    s += "    ports:add <app> <name> <port>    Add a port configuration\n";
+    s += "    ports:remove <app> <name>        Rmeove a port configuration";
     console.log(s);
+}
+
+function list(app) {
+  console.log("list", app);
+}
+
+function add(app, name, port) {
+  console.log("add", app, name, port);
+}
+
+function remove(app, name) {
+  console.log("remove", app, name);
 }
