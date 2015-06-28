@@ -1,1 +1,4 @@
+#!/usr/bin/env bash
+
 # add some commands
+echo "dokku-haproxy: commands"

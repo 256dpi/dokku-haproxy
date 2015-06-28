@@ -1,1 +1,3 @@
-# delete app config
+#!/usr/bin/env bash
+
+echo "dokku-haproxy: post-delete"

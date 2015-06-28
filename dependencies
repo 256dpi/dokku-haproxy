@@ -1,1 +1,3 @@
-# install haproxy, node
+#!/usr/bin/env bash
+
+echo "dokku-haproxy: dependencies"

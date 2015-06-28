@@ -1,1 +1,3 @@
-# switch traffic
+#!/usr/bin/env bash
+
+echo "dokku-haproxy: post-deploy"
