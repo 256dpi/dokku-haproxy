@@ -4,18 +4,23 @@
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/haproxy
 
 # move default config
-if [[ ! -f /etc/haproxy/_haproxy.cfg ]]; then
-  mv /etc/haproxy/haproxy.cfg /etc/haproxy/_haproxy.cfg
+if [[ ! -f /etc/haproxy/_00_haproxy.cfg ]]; then
+  mv /etc/haproxy/haproxy.cfg /etc/haproxy/_00_default.cfg
 fi
 
 # enable stats
-cat<<EOF > /etc/haproxy/_dokku_fake.cfg
+cat<<EOF > /etc/haproxy/_11_stats.cfg
 listen stats :9090
-  balance
-  mode http
-  stats enable
-  stats auth admin:admin
+    mode http
+    stats enable
+    stats hide-version
+    stats realm Haproxy\ Statistics
+    stats uri /
+    stats auth admin:admin
 EOF
+
+# concatenate configs
+cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
 
 # restart service
 sudo service haproxy restart
