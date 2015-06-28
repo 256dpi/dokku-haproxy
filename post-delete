@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-echo "dokku-haproxy: post-delete"
+# remove config file
+rm /etc/haproxy/_22_$APP.cfg
+
+# concatenate configs
+cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
+
+# reload config
+service haproxy reload
