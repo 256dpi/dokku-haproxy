@@ -12,7 +12,7 @@ switch(process.argv[2]) {
     do_list(process.argv[3]);
     break;
   case 'ports:add':
-    do_add(process.argv[3], process.argv[4], process.argv[5]);
+    do_add(process.argv[3], process.argv[4], process.argv[5], process.argv[6]);
     break;
   case 'ports:remove':
     do_remove(process.argv[3], process.argv[4]);
@@ -20,9 +20,9 @@ switch(process.argv[2]) {
 }
 
 function do_help() {
-    var s = '    ports <app>                      Display configured ports\n';
-    s += '    ports:add <app> <name> <port>    Add a port configuration\n';
-    s += '    ports:remove <app> <name>        Rmeove a port configuration';
+    var s = '    ports <app>                              Display configured ports\n';
+    s += '    ports:add <app> <eport> <proc> <iport>   Add a port configuration\n';
+    s += '    ports:remove <app> <eport>               Rmeove a port configuration';
     console.log(s);
 }
 
@@ -38,8 +38,8 @@ function do_list(app) {
 
     if(fs.existsSync(ports_file)) {
       var ports = JSON.parse(fs.readFileSync(ports_file));
-      Object.keys(ports).forEach(function(name){
-        console.log(ports[name] + " => " + name.toUpperCase() + '_PORT');
+      Object.keys(ports).forEach(function(eport){
+        console.log(eport + " => " + ports[eport][0] + ':' + ports[eport][1]);
       });
     } else {
       console.log('no ports haven been configured yet!');
@@ -49,9 +49,9 @@ function do_list(app) {
   }
 }
 
-function do_add(app, name, port) {
-  if(!app || !name || !port) {
-    return console.log('please specify app name, port name and port!');
+function do_add(app, eport, proc, iport) {
+  if(!app || !eport || !proc || !iport) {
+    return console.log('please specify app name, external port, proc name and internal port!');
   }
 
   var ports_file = DOKKU_ROOT + '/' + app + '/PORTS';
@@ -60,19 +60,30 @@ function do_add(app, name, port) {
   if(fs.existsSync(ports_file)) {
     ports = JSON.parse(fs.readFileSync(ports_file));
   }
-  if(!ports[name]) {
-    ports[name] = port;
+
+  if(!ports[eport]) {
+    ports[eport] = [proc, iport];
     fs.writeFileSync(ports_file, JSON.stringify(ports));
-    console.log('set/updated port!');
+    console.log('set new port!');
   } else {
-    console.log('port name already taken!');
+    console.log('this external port has already been added!');
   }
 }
 
-function do_remove(app, name) {
-  if(!app || !name) {
-    return console.log('please specify app name and port name!');
+function do_remove(app, eport) {
+  if(!app || !eport) {
+    return console.log('please specify app name and external port!');
   }
 
-  console.log('remove:', app, name);
+  var ports_file = DOKKU_ROOT + '/' + app + '/PORTS';
+
+  if(fs.existsSync(ports_file)) {
+    var ports = JSON.parse(fs.readFileSync(ports_file));
+    delete ports[eport];
+    fs.writeFileSync(ports_file, JSON.stringify(ports));
+    console.log('removed port!');
+
+  } else {
+    console.log('no ports haven been configured yet!');
+  }
 }
