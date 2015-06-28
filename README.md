@@ -5,9 +5,9 @@
 ## Installation
 
 ```bash
-$ cd /var/lib/dokku/plugins
-$ git clone git@github.com:256dpi/dokku-haproxy.git
-$ dokku plugins-install
+# cd /var/lib/dokku/plugins
+# git clone https://github.com/256dpi/dokku-haproxy.git
+# dokku plugins-install
 ```
 
 ## Configuration
