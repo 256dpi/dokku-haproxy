@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 
+# get app
 APP="$1"
+
+# log
+echo "-----> Generating new haproxy configuration"
 
 # create config
 /var/lib/dokku/plugins/dokku-haproxy/create-config $APP

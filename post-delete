@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# get app
 APP="$1"
 
 # remove config file
