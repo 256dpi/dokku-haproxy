@@ -10,4 +10,4 @@ rm /home/dokku/haproxy/_22_$APP.cfg
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
 # reload config
-sudo /etc/init.d/haproxy reload
+sudo /etc/init.d/haproxy restart

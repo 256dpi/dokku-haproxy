@@ -16,5 +16,5 @@ if [ -f $DOKKU_ROOT/$APP/PORTS ]; then
   cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
   # reload config
-  sudo /etc/init.d/haproxy reload
+  sudo /etc/init.d/haproxy restart
 fi
