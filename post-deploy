@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# concatenate configs
-cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
-
-# reload config
-service haproxy reload

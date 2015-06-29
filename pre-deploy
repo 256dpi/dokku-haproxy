@@ -33,6 +33,8 @@ if(fs.existsSync(ports_file)) {
   }).join('\n');
 
   if(config.length > 0) {
-    fs.writeFileSync('/etc/haproxy/_22_' + APP + '.cfg', config);
+    fs.writeFileSync(APP_ROOT + '/PORTS.cfg', config);
+  } else {
+    fs.writeFileSync(APP_ROOT + '/PORTS.cfg', '\n');
   }
 }
