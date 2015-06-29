@@ -4,14 +4,17 @@ set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 # get app
 APP="$1"
 
-# log
-echo "-----> Generating new haproxy configuration"
+# check if there is a PORTS file
+if [ -f $DOKKU_ROOT/$APP/PORTS ]; then
+  # log
+  echo "-----> Generating new haproxy configuration"
 
-# create config
-/var/lib/dokku/plugins/dokku-haproxy/create-config $APP
+  # create config
+  /var/lib/dokku/plugins/dokku-haproxy/create-config $APP
 
-# concatenate configs
-cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+  # concatenate configs
+  cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
-# reload config
-sudo /etc/init.d/haproxy reload
+  # reload config
+  sudo /etc/init.d/haproxy reload
+fi

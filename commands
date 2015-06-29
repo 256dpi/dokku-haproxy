@@ -80,6 +80,8 @@ function do_remove(app, eport) {
   if(fs.existsSync(ports_file)) {
     var ports = JSON.parse(fs.readFileSync(ports_file));
     delete ports[eport];
+
+    //TODO: if last port has been remove delete file
     fs.writeFileSync(ports_file, JSON.stringify(ports));
     console.log('removed port!');
 
