@@ -11,10 +11,17 @@ EOF
 # create directory
 mkdir -p /home/dokku/haproxy
 
-# copy default config
-if [[ ! -f /home/dokku/haproxy/_00_default.cfg ]]; then
-  sudo cp /etc/haproxy/haproxy.cfg /home/dokku/haproxy/_00_default.cfg
-fi
+# create default config
+cat <<EOF > /home/dokku/haproxy/_00_default.cfg
+global
+  log /dev/log local0
+  log /dev/log local1 notice
+  chroot /var/lib/haproxy
+  user haproxy
+  group haproxy
+  daemon
+
+EOF
 
 # set new haproxy config location
 sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/home\/dokku\/haproxy\/haproxy.cfg/g' /etc/init.d/haproxy
@@ -22,12 +29,13 @@ sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/home\/dokku\/haproxy\
 # enable stats
 cat<<EOF > /home/dokku/haproxy/_11_stats.cfg
 listen stats :9090
-    mode http
-    stats enable
-    stats hide-version
-    stats realm Haproxy\ Statistics
-    stats uri /
-    stats auth admin:admin
+  mode http
+  stats enable
+  stats hide-version
+  stats realm Haproxy\ Statistics
+  stats uri /
+  stats auth admin:admin
+
 EOF
 
 # concatenate configs

@@ -32,7 +32,7 @@ if(fs.existsSync(ports_file)) {
     s += '  option tcplog\n',
     s += '  server ' + m[1] + '.1 ' + m[2] + ':' + m[3] + ' check\n';
     return s;
-  }).join('\n');
+  }).join('\n') + '\n';
 
   var cfg_file = DOKKU_ROOT + '/haproxy/_22_' + APP + '.cfg';
 
