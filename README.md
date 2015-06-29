@@ -17,5 +17,5 @@ dokku plugins-install
 Configure ports using the cli:
 
 ```bash
-$ dokku ports:add app-name external-port process-name internal-port
+dokku ports:add app-name external-port process-name internal-port
 ```
