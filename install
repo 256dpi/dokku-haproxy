@@ -3,6 +3,9 @@
 # enable it
 sudo sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/haproxy
 
+# create directory
+mkdir -p /home/dokku/haproxy
+
 # copy default config
 if [[ ! -f /home/dokku/haproxy/_00_default.cfg ]]; then
   sudo cp /etc/haproxy/haproxy.cfg /home/dokku/haproxy/_00_default.cfg
@@ -24,6 +27,10 @@ EOF
 
 # concatenate configs
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+
+# give access
+chown dokku:dokku /home/dokku/haproxy
+chown dokku:dokku /home/dokku/haproxy/*
 
 # restart service
 sudo service haproxy restart
