@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# create config
+/var/lib/dokku/plugins/dokku-haproxy/create-config
+
 # concatenate configs
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
