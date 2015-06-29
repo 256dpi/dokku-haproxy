@@ -31,9 +31,9 @@ if(fs.existsSync(ports_file)) {
     s += '  mode tcp\n';
     s += '  log global\n';
     s += '  option tcplog\n',
-    s += '  contimeout 5000\n';
-    s += '  clitimeout 50000\n';
-    s += '  srvtimeout 50000\n';
+    s += '  timeout connect 5s\n';
+    s += '  timeout client 24h\n';
+    s += '  timeout server 24h\n';
     s += '  maxconn 512000\n';
     s += '  server ' + m[1] + '.1 ' + m[2] + ':' + m[3] + ' check\n';
     return s;

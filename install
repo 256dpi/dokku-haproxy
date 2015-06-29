@@ -30,6 +30,9 @@ sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/home\/dokku\/haproxy\
 cat<<EOF > /home/dokku/haproxy/_11_stats.cfg
 listen stats :9090
   mode http
+  timeout connect 5s
+  timeout client 24h
+  timeout server 24h
   stats enable
   stats hide-version
   stats realm Haproxy\ Statistics
