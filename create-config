@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-var APP = process.argv[0];
+var APP = process.argv[2];
 var DOKKU_ROOT = process.env['DOKKU_ROOT'];
 var APP_ROOT = DOKKU_ROOT + '/' + APP;
 
