@@ -4,4 +4,4 @@
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
 # reload config
-sudo service haproxy reload
+sudo /etc/init.d/haproxy reload

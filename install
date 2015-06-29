@@ -3,6 +3,11 @@
 # enable it
 sudo sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/haproxy
 
+# give access
+sudo cat<<EOF > /etc/sudoers.d/dokku-haproxy
+  %dokku ALL=(ALL) NOPASSWD:/etc/init.d/haproxy reload
+EOF
+
 # create directory
 mkdir -p /home/dokku/haproxy
 
