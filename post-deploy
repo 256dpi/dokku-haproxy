@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-# export need variables
-export APP=$APP
-export DOKKU_ROOT=$DOKKU_ROOT
+APP="$1"
 
 # create config
-/var/lib/dokku/plugins/dokku-haproxy/create-config
+/var/lib/dokku/plugins/dokku-haproxy/create-config $APP
 
 # concatenate configs
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg

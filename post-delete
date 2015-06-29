@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+APP="$1"
+
 # remove config file
 rm /home/dokku/haproxy/_22_$APP.cfg
 
