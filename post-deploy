@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-echo "dokku-haproxy: post-deploy"
+# concatenate configs
+cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
+
+# reload config
+service haproxy reload

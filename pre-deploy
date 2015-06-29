@@ -1,0 +1,38 @@
+#!/usr/bin/env nodejs
+
+var fs = require('fs');
+
+var APP = process.env['APP'];
+var APP_ROOT = process.env['DOKKU_ROOT'] + '/' + APP;
+
+var ports_file = APP_ROOT + '/PORTS';
+
+if(fs.existsSync(ports_file)) {
+  var ports = JSON.parse(fs.readFileSync(ports_file));
+
+  var mappings = [];
+
+  Object.keys(ports).forEach(function(eport){
+    var proc = ports[eport][0];
+    var iport = ports[eport][1];
+
+    var ip_file = APP_ROOT + '/IP.' + proc + '.1';
+
+    if(fs.existsSync(ip_file)) {
+      var ip = fs.readFileSync(ip_file).toString().replace('\n', '');
+
+      mappings.push([eport, proc, ip, iport]);
+    }
+  });
+
+  var config = mappings.map(function(m){
+    var s = 'listen port-' + m[0] + ' :' + m[0] + '\n';
+    s += '  mode tcp\n';
+    s += '  server ' + m[1] + '.1 ' + m[2] + ':' + m[3] + ' check';
+    return s;
+  }).join('\n');
+
+  if(config.length > 0) {
+    fs.writeFileSync('/etc/haproxy/_22_' + APP + '.cfg', config);
+  }
+}
