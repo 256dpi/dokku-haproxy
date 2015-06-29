@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-# move new config
-sudo mv $DOKKU_ROOT/$APP/PORTS.cfg /etc/haproxy/_22_$APP.cfg
-
 # concatenate configs
-sudo cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
+cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
 # reload config
 sudo service haproxy reload

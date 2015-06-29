@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # remove config file
-sudo rm /etc/haproxy/_22_$APP.cfg
+rm /home/dokku/haproxy/_22_$APP.cfg
 
 # concatenate configs
-sudo cat /etc/haproxy/_* > /etc/haproxy/haproxy.cfg
+cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
 
 # reload config
 sudo service haproxy reload
