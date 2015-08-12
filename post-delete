@@ -4,7 +4,7 @@
 APP="$1"
 
 # remove config file
-rm /home/dokku/haproxy/_22_$APP.cfg
+rm -f /home/dokku/haproxy/_22_$APP.cfg
 
 # concatenate configs
 cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
