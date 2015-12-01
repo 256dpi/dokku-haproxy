@@ -10,10 +10,10 @@ if [ -f $DOKKU_ROOT/$APP/PORTS ]; then
   echo "-----> Removing haproxy configuration"
 
   # remove config file
-  rm -f /home/dokku/haproxy/_22_$APP.cfg
+  rm -f /var/lib/dokku-haproxy/_22_$APP.cfg
 
   # concatenate configs
-  cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+  cat /var/lib/dokku-haproxy/_* > /var/lib/dokku-haproxy/haproxy.cfg
 
   # reload config
   sudo /etc/init.d/haproxy restart

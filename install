@@ -9,10 +9,10 @@ sudo cat<<EOF > /etc/sudoers.d/dokku-haproxy
 EOF
 
 # create directory
-mkdir -p /home/dokku/haproxy
+mkdir -p /var/lib/dokku-haproxy
 
 # create default config
-cat <<EOF > /home/dokku/haproxy/_00_default.cfg
+cat <<EOF > /var/lib/dokku-haproxy/_00_default.cfg
 global
   log /dev/log local0
   log /dev/log local1 notice
@@ -27,7 +27,7 @@ EOF
 sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/home\/dokku\/haproxy\/haproxy.cfg/g' /etc/init.d/haproxy
 
 # enable stats
-cat<<EOF > /home/dokku/haproxy/_11_stats.cfg
+cat<<EOF > /var/lib/dokku-haproxy/_11_stats.cfg
 listen stats :9090
   mode http
   timeout connect 5s
@@ -42,11 +42,11 @@ listen stats :9090
 EOF
 
 # concatenate configs
-cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+cat /var/lib/dokku-haproxy/_* > /var/lib/dokku-haproxy/haproxy.cfg
 
 # give access
-chown dokku:dokku /home/dokku/haproxy
-chown dokku:dokku /home/dokku/haproxy/*
+chown dokku:dokku /var/lib/dokku-haproxy
+chown dokku:dokku /var/lib/dokku-haproxy/*
 
 # restart service
 sudo service haproxy restart
