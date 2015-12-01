@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# install haproxy
+sudo apt-get -y install haproxy nodejs
+
 # enable it
 sudo sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/haproxy
 

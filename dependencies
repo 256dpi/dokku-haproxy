@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-# install haproxy
-sudo apt-get -y install haproxy nodejs
