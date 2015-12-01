@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 
 # get app
 APP="$1"
 
-# remove config file
-rm -f /home/dokku/haproxy/_22_$APP.cfg
+# check if there is a PORTS file
+if [ -f $DOKKU_ROOT/$APP/PORTS ]; then
+  # log
+  echo "-----> Removing haproxy configuration"
 
-# concatenate configs
-cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+  # remove config file
+  rm -f /home/dokku/haproxy/_22_$APP.cfg
 
-# reload config
-sudo /etc/init.d/haproxy restart
+  # concatenate configs
+  cat /home/dokku/haproxy/_* > /home/dokku/haproxy/haproxy.cfg
+
+  # reload config
+  sudo /etc/init.d/haproxy restart
+fi
