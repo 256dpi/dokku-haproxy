@@ -39,7 +39,7 @@ if(fs.existsSync(ports_file)) {
     return s;
   }).join('\n') + '\n';
 
-  var cfg_file = DOKKU_ROOT + '/haproxy/_22_' + APP + '.cfg';
+  var cfg_file = '/var/lib/dokku-haproxy/_22_' + APP + '.cfg';
 
   if(config.length > 0) {
     fs.writeFileSync(cfg_file, config);
