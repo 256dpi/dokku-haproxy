@@ -20,9 +20,9 @@ switch(process.argv[2]) {
 }
 
 function do_help() {
-    var s = '    ports <app>                                                                   Display configured ports\n';
-    s += '    ports:add <app> <eport> <proc> <iport>                                        Add a port configuration\n';
-    s += '    ports:remove <app> <eport>                                                    Remove a port configuration';
+    var s = '    ports <app>                                                                                                 Display configured ports\n';
+    s += '    ports:add <app> <eport> <proc> <iport>                                                                      Add a port configuration\n';
+    s += '    ports:remove <app> <eport>                                                                                  Remove a port configuration';
     console.log(s);
 }
 
