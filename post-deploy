@@ -10,7 +10,7 @@ if [ -f $DOKKU_ROOT/$APP/PORTS ]; then
   echo "-----> Generating new haproxy configuration"
 
   # create config
-  /var/lib/dokku/plugins/dokku-haproxy/create-config $APP
+  /var/lib/dokku/plugins/available/haproxy/create-config $APP
 
   # concatenate configs
   cat /var/lib/dokku-haproxy/_* > /var/lib/dokku-haproxy/haproxy.cfg
