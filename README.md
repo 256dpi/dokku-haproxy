@@ -7,9 +7,7 @@
 Install the plugin:
 
 ```bash
-cd /var/lib/dokku/plugins
-git clone https://github.com/256dpi/dokku-haproxy.git
-dokku plugins-install
+dokku plugin:install https://github.com/256dpi/dokku-haproxy.git
 ```
 
 ## Configuration
