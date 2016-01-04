@@ -10,7 +10,7 @@ Install the plugin:
 dokku plugin:install https://github.com/256dpi/dokku-haproxy.git
 ```
 
-_Note: This plugin will expose the stats interface on port 9090 by default, its up to you to allow or block this port in your firewall._
+_Note: This plugin will expose the stats interface on port 9090, its up to you to allow or block this port in your firewall._
 
 ## Usage
 
