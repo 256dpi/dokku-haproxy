@@ -10,10 +10,24 @@ Install the plugin:
 dokku plugin:install https://github.com/256dpi/dokku-haproxy.git
 ```
 
-## Configuration
+## Usage
 
-Configure ports using the cli:
+The plugin offers the following commands via the dokku tool:
+
+```
+ports:add <app> <eport> <proc> <iport> Add a port configuration
+ports <app>                            Display configured ports
+ports:remove <app> <eport>             Remove a port configuration
+```
+
+To add a port configuration, run the following example command:
 
 ```bash
-dokku ports:add app-name external-port process-name internal-port
+dokku ports:add my-app 80 web 8080
+```
+
+To remove that configuration later, run the following example command:
+
+```bash
+dokku ports:remove my-app 80
 ```
