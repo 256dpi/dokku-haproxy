@@ -27,11 +27,12 @@ global
 EOF
 
 # set new haproxy config location
-sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/var\/lib\/dokku-haproxy\/haproxy.cfg/g' /etc/init.d/haproxy
+sudo sed -i 's/#CONFIG=\"\/etc\/haproxy\/haproxy.cfg\"/CONFIG=\"\/var\/lib\/dokku-haproxy\/haproxy.cfg\"/g' /etc/default/haproxy
 
 # enable stats
 cat<<EOF > /var/lib/dokku-haproxy/_11_stats.cfg
-listen stats :9090
+listen stats
+  bind :9000
   mode http
   timeout connect 5s
   timeout client 24h
