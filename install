@@ -27,7 +27,7 @@ global
 EOF
 
 # set new haproxy config location
-sudo sed -i 's/CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/var\/lib\/dokku-haproxy\/haproxy.cfg/g' /etc/init.d/haproxy
+sudo sed -i 's/#CONFIG=\/etc\/haproxy\/haproxy.cfg/CONFIG=\/var\/lib\/dokku-haproxy\/haproxy.cfg/g' /etc/default/haproxy
 
 # enable stats
 cat<<EOF > /var/lib/dokku-haproxy/_11_stats.cfg
