@@ -1,4 +1,4 @@
 [plugin]
 description = "haproxy tcp load balancer for dokku"
-version = "0.1.0"
+version = "0.1.1"
 [plugin.config]
